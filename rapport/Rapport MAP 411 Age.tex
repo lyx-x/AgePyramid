@@ -113,71 +113,163 @@ Dans cette situation-là, si $\beta > \mu$, on a plus de naissance que la mort, 
 
 %------------------------------------------------
 
-\paragraph{\textbf{Question 1.}}
+\paragraph{\textbf{Question 2.}}
 ~\\
 
+Dans cette question, le taux de mortalité dépend de $P$, $\mu (P) = kP(t)$. On pourra remplacé $\mu$ par cette nouvelle formule dans $(2.5)$, car $\mu$ est toujours indépendant de $a$ et n\rq{}intervient pas dans l\rq{}intégrale. D\rq{}où on a une nouvelle équation différentielle :
 
+\begin{equation*}
+{dP \over dt}(t) = [\beta - \mu(t)]P(t)
+\end{equation*}
 
-\begin{align} 
-\begin{split}
-(x+y)^3 	&= (x+y)^2(x+y)\\
-&=(x^2+2xy+y^2)(x+y)\\
-&=(x^3+2x^2y+xy^2) + (x^2y+2xy^2+y^3)\\
-&=x^3+3x^2y+3xy^2+y^3
-\end{split}					
-\end{align}
+Ou bien : 
 
+\begin{equation}
+\fbox{${dP \over dt}(t) = \beta P(t) - k{P(t)}^2$}
+\end{equation}
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
+Résolvons maintenant cette équation : 
+
+\begin{equation*}
+\begin{aligned}
+\frac{d(P-\frac{\beta}{2k})}{{(P-\frac{\beta}{2k})}^2-\frac{\beta^2}{4k^2}}(t)  & =  -kdt \\
+\frac{k}{\beta}(\frac{1}{P-\frac{\beta}{k}}-\frac{1}{P})d(P-\frac{\beta}{2k})& =  -kdt \\
+ln(\frac{P}{P-\frac{\beta}{k}}) & =  \beta t + ln(\frac{P(0)}{P(0)-\frac{\beta}{k}})\\
+\frac{P}{P-\frac{\beta}{k}} & = \frac{P(0)}{P(0)-\frac{\beta}{k}}e^{\beta t} \\
+\end{aligned}
+\end{equation*}
+
+Finalement, nous trouvons en posant $C=\frac{P(0)}{P(0)-\frac{\beta}{k}}$ :
+
+\begin{equation}
+\fbox{$P(t) = \frac{\frac{\beta}{k}Ce^{\beta t}}{1-Ce^{\beta t}}$}
+\end{equation}
+
+Ce résultat montre bien que plus la population dépend positivement du taux de fécondité $\beta$ et négativement du taux de mortalité $\mu$. 
+
+%------------------------------------------------
+
+\paragraph{\textbf{Question 3.a.}}
+~\\
+
+Supposons que $\mu$ dépend de $a$, on a, puisqu\rq{}on confond $a$ et $t$ ici une équation différentielle pour $\phi(t) = \rho(t,t)$ :
+
+\begin{equation}
+\fbox{${d\phi \over dt}(t)  =  {d\rho \over dt}(t) = -\mu(t)\rho(t)$}
+\end{equation}
+
+\paragraph{\textbf{Question 3.b.}}
+~\\
+
+En résolvant l\rq{}équation précédente, on trouve :
+
+\begin{equation*}
+\begin{aligned}
+ln(\rho(t)) - ln(\rho(0)) & = -\int_{0}^{t}\mu(a)da \\
+\rho(t)& =  \rho(0)e^{-\int_{0}^{T}\mu(a)da} \\
+\rho(A)& =  \rho(0)e^{-\int_{0}^{A}\mu(a)da} 
+\end{aligned}
+\end{equation*}
+
+Utilisons l\rq{}hypothèse que ${\int_{0}^{A}\mu(a)da} = +\infty$, nous pouvons dire que $\rho(A) = 0$, ce qui implique que quite à translater les coordonnées en temps, la génération des nouveau-nés à $t = 0$ disparaîtra toujours à l\rq{}âge de $A$ ans. Personne ne peut vivre à l\rq{}âge $A$ puisse que tout le monde doit être né au moment où il avait $0$ ans.
+
+%----------------------------------------------------------------------------------------
+%	Discrétisation numérique
+%----------------------------------------------------------------------------------------
+
+\section{Discrétisation numérique}
+Rappelons le schéma de discrétisation : 
 \begin{align}
-A = 
-\begin{bmatrix}
-A_{11} & A_{21} \\
-A_{21} & A_{22}
-\end{bmatrix}
+P^n & = \Delta{\sum_{i=0}^{N-1}\rho_i^n} \label{eq:5}\\
+N^n & = \Delta\sum_{i=0}^{N-1}\beta(i\Delta a)\rho_i^n\label{eq:6}\\
+\frac{\rho_{i}^{n+1}-\rho_{i}^{n}}{\Delta t} + \frac{\rho_{i}^{n}-\rho_{i-1}^{n}}{\Delta t} + \mu(i\Delta a,P^n)\rho_{i-1}^{n} & = 0 \ \ \ \ \ si\ i = 1,...,N \label{eq:7}\\
+\frac{\rho_{0}^{n+1}-\rho_{0}^{n}}{\Delta t} + \frac{\rho_{0}^{n}-N^n}{\Delta a}& = 0 \label{eq:8}
 \end{align}
-Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
 
 %------------------------------------------------
 
-\subsubsection{Heading on level 3 (subsubsection)}
+\paragraph{\textbf{Question 4.a.}}
+~\\
 
-\lipsum[3] % Dummy text
+Etudions le schéma $(3.3)$ dans le cas de conditions aux limites périodiques en $a$. Ecrivons le schéma d\rq{}une autre manière : 
 
-\paragraph{Heading on level 4 (paragraph)}
+\begin{equation}
+\rho_{i}^{n+1} = \rho_{i-1}^{n} (\frac{\Delta t}{\Delta a} - \mu(i\Delta a, P^n)\Delta t) + \rho_{i}^{n} (1-\frac{\Delta t}{\Delta a})
+\end{equation}
 
-\lipsum[6] % Dummy text
-
-%----------------------------------------------------------------------------------------
-%	PROBLEM 2
-%----------------------------------------------------------------------------------------
-
-\section{Lists}
+Si on suppose que $\mu(a)$ positif et d\rq{}intégrale non nulle sur l\rq{}intervalle de périodicité, on sait qu\rq{}il exite pour $\Delta a$ petit, un $i^*$ tel que $\mu(i^*\Delta a) > 0$, d\rq{}après la formule ci-dessus, $\rho_{i^*}^{n}$ tend vers $0$ quand $n$ tend vers $+\infty$, car la somme des coefficients de cette combinaision est strictement inférieure à $1$.
 
 %------------------------------------------------
 
-\subsection{Example of list (3*itemize)}
-\begin{itemize}
-	\item First item in a list 
-		\begin{itemize}
-		\item First item in a list 
-			\begin{itemize}
-			\item First item in a list 
-			\item Second item in a list 
-			\end{itemize}
-		\item Second item in a list 
-		\end{itemize}
-	\item Second item in a list 
-\end{itemize}
+\paragraph{\textbf{Question 4.b.}}
+~\\
+
+La condition de stabilité $l^\infty$ vient d\rq{}une combinaison convexe. Dans la formule $(3.5)$, nous voyons que pour que la combinaison soit convexe, il faut que :
+
+\begin{equation*}
+\begin{aligned}
+(\frac{\Delta t}{\Delta a} - \mu(i\Delta a, P^n)\Delta t) + (1-\frac{\Delta t}{\Delta a}) & = 1 \\
+\frac{\Delta t}{\Delta a} - \mu(i\Delta a, P^n)\Delta t & \geq 0 \\
+1-\frac{\Delta t}{\Delta a} & \geq 0 
+\end{aligned}
+\end{equation*}
+
+Soit :
+
+\begin{equation}
+\fbox{$\Delta t \leq \Delta a \leq \frac{1}{Max(\mu)}$}
+\end{equation}
+
+Cette même condition peut aussi garantir que $\rho_{i}^{n+1}\in[0,\max_{i}\rho_{i}^{n}]$.
 
 %------------------------------------------------
 
-\subsection{Example of list (enumerate)}
-\begin{enumerate}
-\item First item in a list 
-\item Second item in a list 
-\item Third item in a list
-\end{enumerate}
+\paragraph{\textbf{Question 5.}}
+~\\
+
+La matrice de transition s\rq{}écrit :
+\begin{equation}
+T_{N+1,N+1} =
+\begin{pmatrix}
+1-\frac{\Delta t}{\Delta a}+\beta(0) & \beta(\Delta a) & \beta(2\Delta a) & \cdots & \beta((N-1)\Delta a) & 0 \\
+\frac{\Delta t}{\Delta a} - \mu(0, P^n) & 1-\frac{\Delta t}{\Delta a}+\beta(0) & 0 & \cdots & \cdots & 0\\
+0  & \frac{\Delta t}{\Delta a} - \mu(\Delta a, P^n)  & \ddots & \ddots  & & \vdots\\
+\vdots & 0 & \ddots & \ddots&0&\vdots\\
+\vdots & & \ddots  & \ddots&1-\frac{\Delta t}{\Delta a}&0\\
+0 & \cdots & \cdots & 0 & \frac{\Delta t}{\Delta a} - \mu(N\Delta a, P^n) & 1-\frac{\Delta t}{\Delta a}
+\end{pmatrix}
+\end{equation}
+
+On remarque que cette matrice est légèrement différente des matrices habituelles, car elle change de valeur d\rq{}un étape à l\rq{}autre, ce qui nécessite un calcul supplémentaire pour effectuer une simulation.
+
+En faisant une simulation numérique, nous voyons que $\Delta t \leq \Delta a$ correspond à un schéma stable mais ne respecte pas le principe du maximum discret dû au taux de fécondité (on change les conditions limites) et quant au cas où $\Delta t > \Delta a$, nous avons un schéma instable, ce qui est propre au schéma. On constate en même temps que si on prend $\Delta t = \frac{\Delta a}{10}$, le temps de calcul est plus long, mais la convergence se fait plus vite.
+
+Dans le cas où $\Delta t = \Delta a$, le schéma s\rq{}écrit : 
+
+\begin{equation}
+\rho_{i}^{n+1} - \rho_{i-1}^{n}+\mu(i\Delta t, P^n)\rho_{i-1}^{n} = 0
+\end{equation}
+
+Et la matrice de transition aura son diagonale presque nulle, sauf le premier terme qui dépend de $\beta$.
+
+%------------------------------------------------
+
+\paragraph{\textbf{Question 6.}}
+~\\
+
+Si nous prenons un taux de mortalité de la forme :
+
+\begin{equation}
+\mu(a) = \frac{1}{A-a}
+\end{equation}
+
+Le schéma devient instable quand on raffine en $\Delta a$, parce que dans le schéma précédent, on demande $\mu(N\Delta a)$ qui pourra ne pas être définie. Il faut donc modifier le schéma et faire $\mu((i-1)\Delta a,P^n)\rho_{i-1}^{n}$.
+
+Mais avec le taux de mortalité et de fécondité ainsi définis, la population explose tout le temps, on pourrait modifier la formule de $\mu$ en tenant compte de la population : 
+
+\begin{equation}
+\mu^*(a) = \frac{P}{A-a}
+\end{equation}
 
 %----------------------------------------------------------------------------------------
 
