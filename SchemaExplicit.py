@@ -4,19 +4,6 @@ import pylab as pl
 
 #Initialisation
 
-#Série 1, delta_a plus grand que 1/mu, instable
-#a = 5;
-#t = 5;
-
-#Série 2, delta_t plus grand delta_a, instable
-#a = 1;
-#t = 1.5;
-
-#Série 3, stable
-#a = 1;  #delta_a
-#t = 1;  #delta_t
-
-#Série 4, stable
 delta_a = 1;  #delta_a
 delta_t = 0.1;  #delta_t
 Temps = 10000;  #Temps
